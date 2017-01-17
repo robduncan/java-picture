@@ -51,7 +51,7 @@ public class Process {
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < height; j++) {
                 Color pixel = picture.getPixel(i, j);
-                newPicture.setPixel(j, i, pixel);
+                newPicture.setPixel(height - j - 1, i, pixel);
             }
         }
         picture = newPicture;
