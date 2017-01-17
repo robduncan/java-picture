@@ -98,12 +98,12 @@ public class Process {
     public void blend(Picture[] pictures) {
         int minWidth = width;
         int minHeight = height;
-        Picture newPicture = Utils.createPicture(minWidth, minHeight);
         int numberOfPictures = pictures.length;
-        for(Picture picture : pictures) {
-            minWidth = Math.min(minWidth, picture.getWidth());
-            minHeight = Math.min(minHeight, picture.getHeight());
+        for(Picture p : pictures) {
+            minWidth = Math.min(minWidth, p.getWidth());
+            minHeight = Math.min(minHeight, p.getHeight());
         }
+        Picture newPicture = Utils.createPicture(minWidth, minHeight);
         for(int i = 0; i < minWidth; i++) {
             for(int j = 0; j < minHeight; j++) {
                 Color pixel = pictures[0].getPixel(i, j);
