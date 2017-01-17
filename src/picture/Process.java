@@ -100,9 +100,9 @@ public class Process {
         int minHeight = height;
         Picture newPicture = Utils.createPicture(minWidth, minHeight);
         int numberOfPictures = pictures.length;
-        for(int i = 0; i < numberOfPictures; i++) {
-            minWidth = Math.min(minWidth, pictures[i].getWidth());
-            minHeight = Math.min(minHeight, pictures[i].getHeight());
+        for(Picture picture : pictures) {
+            minWidth = Math.min(minWidth, picture.getWidth());
+            minHeight = Math.min(minHeight, picture.getHeight());
         }
         for(int i = 0; i < minWidth; i++) {
             for(int j = 0; j < minHeight; j++) {
