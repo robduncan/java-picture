@@ -119,18 +119,23 @@ public class Process {
 
 
     public void blur() {
-        Picture newPicture = picture;
-        for(int i = 1; i < width - 1; i++) {
-            for(int j = 1; j < height - 1; j++) {
-                Color pixel1 = new Color(0, 0, 0);
-                for(int m = i - 1; m <= i + 1; m++) {
-                    for (int n = j - 1; n <= j + 1; n++) {
-                        Color pixel2 = picture.getPixel(m, n);
-                        addPixel(pixel1, pixel2);
+        Picture newPicture = Utils.createPicture(width, height);
+        for(int i = 0; i < width ; i++) {
+            for(int j = 0; j < height; j++) {
+                if(i != 0 && j != 0 && i != width - 1 && j != height - 1) {
+                    Color pixel1 = new Color(0, 0, 0);
+                    for (int m = i - 1; m <= i + 1; m++) {
+                        for (int n = j - 1; n <= j + 1; n++) {
+                            Color pixel2 = picture.getPixel(m, n);
+                            addPixel(pixel1, pixel2);
+                        }
                     }
+                    avgPixel(pixel1, 9);
+                    newPicture.setPixel(i, j, pixel1);
                 }
-                avgPixel(pixel1, 9);
-                newPicture.setPixel(i, j, pixel1);
+                else {
+                    newPicture.setPixel(i, j, picture.getPixel(i, j));
+                }
             }
         }
         picture = newPicture;
