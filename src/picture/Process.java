@@ -110,7 +110,7 @@ public class Process {
                 for(int m = 1; m < numberOfPictures; m++) {
                     addPixel(pixel, pictures[m].getPixel(i, j));
                 }
-                avgPixel(pixel, numberOfPictures);
+                pixelDiv(pixel, numberOfPictures);
                 newPicture.setPixel(i, j, pixel);
             }
         }
@@ -130,7 +130,7 @@ public class Process {
                             addPixel(pixel1, pixel2);
                         }
                     }
-                    avgPixel(pixel1, 9);
+                    pixelDiv(pixel1, 9);
                     newPicture.setPixel(i, j, pixel1);
                 }
                 else {
@@ -147,7 +147,7 @@ public class Process {
         pixel1.setGreen(pixel1.getGreen() + pixel2.getGreen());
     }
 
-    private void avgPixel(Color pixel, int n) {
+    private void pixelDiv(Color pixel, int n) {
         pixel.setRed(pixel.getRed() / n);
         pixel.setBlue(pixel.getBlue() / n);
         pixel.setGreen(pixel.getGreen() / n);
