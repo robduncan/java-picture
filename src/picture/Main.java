@@ -11,12 +11,18 @@ public class Main {
 
   private static Picture getPicture(String[] args) {
     String location = args[args.length - 2];
-    return Utils.loadPicture(location);
+    Picture temp = Utils.loadPicture(location);
+    if(temp == null) {
+      System.err.println("invalid location");
+    }
+    return temp;
   }
 
   private static void savePicture(Picture modifiedPicture, String[] args) {
     String destination = args[args.length - 1];
-    Utils.savePicture(modifiedPicture, destination);
+    if(Utils.savePicture(modifiedPicture, destination) == false) {
+      System.err.println("invalid destination");
+    }
   }
 
   private static Picture applyProcess(Picture picture, String[] args) {

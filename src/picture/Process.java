@@ -16,20 +16,14 @@ public class Process {
     }
 
     public void invert() {
-
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < height; j++) {
                 Color pixel = picture.getPixel(i, j);
-                int red = 255 - pixel.getRed();
-                int blue = 255 - pixel.getBlue();
-                int green = 255 - pixel.getGreen();
-                Color color = new Color(red, green, blue);
-                picture.setPixel(i, j, color);
+                invertPixel(pixel);
+                picture.setPixel(i, j, pixel);
 
             }
         }
-
-
     }
 
     public void grayscale() {
@@ -96,25 +90,35 @@ public class Process {
     }
 
     public void blend(Picture[] pictures) {
+
         int minWidth = width;
         int minHeight = height;
-        int numberOfPictures = pictures.length;
-        for(Picture p : pictures) {
-            minWidth = Math.min(minWidth, p.getWidth());
-            minHeight = Math.min(minHeight, p.getHeight());
-        }
+        getMins(minWidth, minHeight, pictures);
         Picture newPicture = Utils.createPicture(minWidth, minHeight);
+
+        int numberOfPictures = pictures.length;
+
         for(int i = 0; i < minWidth; i++) {
             for(int j = 0; j < minHeight; j++) {
+
                 Color pixel = pictures[0].getPixel(i, j);
+
                 for(int m = 1; m < numberOfPictures; m++) {
                     addPixel(pixel, pictures[m].getPixel(i, j));
                 }
                 pixelDiv(pixel, numberOfPictures);
+
                 newPicture.setPixel(i, j, pixel);
             }
         }
         picture = newPicture;
+    }
+
+    private void getMins(int minWidth, int minHeight, Picture[] pictures) {
+        for(Picture p : pictures) {
+            minWidth = Math.min(minWidth, p.getWidth());
+            minHeight = Math.min(minHeight, p.getHeight());
+        }
     }
 
 
@@ -122,16 +126,9 @@ public class Process {
         Picture newPicture = Utils.createPicture(width, height);
         for(int i = 0; i < width ; i++) {
             for(int j = 0; j < height; j++) {
-                if(i != 0 && j != 0 && i != width - 1 && j != height - 1) {
-                    Color pixel1 = new Color(0, 0, 0);
-                    for (int m = i - 1; m <= i + 1; m++) {
-                        for (int n = j - 1; n <= j + 1; n++) {
-                            Color pixel2 = picture.getPixel(m, n);
-                            addPixel(pixel1, pixel2);
-                        }
-                    }
-                    pixelDiv(pixel1, 9);
-                    newPicture.setPixel(i, j, pixel1);
+                if(!isOnEdge(i, j)) {
+                    Color blurredPixel = getBulrredPixel(i, j);
+                    newPicture.setPixel(i, j, blurredPixel);
                 }
                 else {
                     newPicture.setPixel(i, j, picture.getPixel(i, j));
@@ -139,6 +136,32 @@ public class Process {
             }
         }
         picture = newPicture;
+    }
+
+    private boolean isOnEdge (int i, int j) {
+        if(i == 0 || j == 0 || i == width - 1 || j == height - 1) {
+            return true;
+        }
+        return false;
+
+    }
+
+    private Color getBulrredPixel(int i, int j) {
+        Color blurredPixel = new Color(0, 0, 0);
+        for (int m = i - 1; m <= i + 1; m++) {
+            for (int n = j - 1; n <= j + 1; n++) {
+                Color pixel = picture.getPixel(m, n);
+                addPixel(blurredPixel, pixel);
+            }
+        }
+        pixelDiv(blurredPixel, 9);
+        return blurredPixel;
+    }
+
+    private void invertPixel(Color pixel) {
+        pixel.setRed(255 - pixel.getRed());
+        pixel.setBlue(255 - pixel.getBlue());
+        pixel.setGreen(255 - pixel.getGreen());
     }
 
     private void addPixel(Color pixel1, Color pixel2) {
