@@ -1,5 +1,8 @@
 package picture;
 
+import utils.Tuple;
+
+
 public class Process {
 
     private Picture picture;
@@ -90,7 +93,6 @@ public class Process {
     }
 
     public void blend(Picture[] pictures) {
-
         int minWidth = width;
         int minHeight = height;
         getMins(minWidth, minHeight, pictures);
@@ -121,7 +123,6 @@ public class Process {
         }
     }
 
-
     public void blur() {
         Picture newPicture = Utils.createPicture(width, height);
         for(int i = 0; i < width ; i++) {
@@ -134,6 +135,26 @@ public class Process {
                     newPicture.setPixel(i, j, picture.getPixel(i, j));
                 }
             }
+        }
+        picture = newPicture;
+    }
+
+    public void mosaic(int tileSize, Picture[] pictures) {
+        Tuple<Integer, Integer> dimensions = trimDimensions(width, height, tileSize, pictures);
+        int minWidth = dimensions.getX();
+        int minHeight = dimensions.getY();
+        Picture newPicture = Utils.createPicture(minWidth, minHeight);
+        int numberOfPictures = pictures.length;
+        int m = 0, n = 0;
+         for(int j = 0; j < minHeight; j += tileSize) {
+             n = m;
+             for(int i = 0; i < minWidth; i += tileSize) {
+                 changeTile(i, j, tileSize, newPicture, pictures[n]);
+                 n++;
+                 n = n % numberOfPictures;
+            }
+             m++;
+             m = m % numberOfPictures;
         }
         picture = newPicture;
     }
@@ -156,6 +177,23 @@ public class Process {
         }
         pixelDiv(blurredPixel, 9);
         return blurredPixel;
+    }
+
+    private void changeTile(int i, int j, int tileSize, Picture picture1, Picture picture2) {
+        for(int m = i; m < i + tileSize; m ++) {
+            for(int n = j; n < j + tileSize; n ++) {
+                picture1.setPixel(m, n, picture2.getPixel(m, n));
+
+            }
+        }
+    }
+
+    private Tuple<Integer, Integer> trimDimensions(int minWidth, int minHeight, int tileSize, Picture[] pictures) {
+        getMins(minWidth, minHeight, pictures);
+        minWidth = minWidth - (minWidth % tileSize);
+        minHeight = minHeight - (minHeight % tileSize);
+        Tuple<Integer, Integer> dimensions= new utils.Tuple<>(minWidth, minHeight);
+        return dimensions;
     }
 
     private void invertPixel(Color pixel) {

@@ -55,6 +55,15 @@ public class Main {
         processPicture.blend(pictures);
       } break;
       case "blur": processPicture.blur(); break;
+      case "mosaic": {
+          int tileSize = Integer.parseInt(args[1]);
+          int numberOfPictures = args.length - 3;
+          Picture[] pictures = new Picture[numberOfPictures];
+          for(int i = 0; i < numberOfPictures; i++) {
+              pictures[i] = Utils.loadPicture(args[i + 2]);
+          }
+          processPicture.mosaic(tileSize, pictures);
+      } break;
     }
 
     return processPicture.getPicture();
