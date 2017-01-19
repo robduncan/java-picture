@@ -51,6 +51,9 @@ public class Main {
         Picture[] pictures = new Picture[numberOfPictures];
         for(int i = 0; i < numberOfPictures; i++) {
           pictures[i] = Utils.loadPicture(args[i + 1]);
+          if(pictures[i] == null) {
+            System.err.println("invalid location");
+          }
         }
         processPicture.blend(pictures);
       } break;
@@ -60,7 +63,10 @@ public class Main {
           int numberOfPictures = args.length - 3;
           Picture[] pictures = new Picture[numberOfPictures];
           for(int i = 0; i < numberOfPictures; i++) {
-              pictures[i] = Utils.loadPicture(args[i + 2]);
+            pictures[i] = Utils.loadPicture(args[i + 2]);
+            if(pictures[i] == null) {
+              System.err.println("invalid location");
+            }
           }
           processPicture.mosaic(tileSize, pictures);
       } break;

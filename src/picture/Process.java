@@ -145,7 +145,7 @@ public class Process {
         int minHeight = dimensions.getY();
         Picture newPicture = Utils.createPicture(minWidth, minHeight);
         int numberOfPictures = pictures.length;
-        int m = 0, n = 0;
+        int m = 0, n;
          for(int j = 0; j < minHeight; j += tileSize) {
              n = m;
              for(int i = 0; i < minWidth; i += tileSize) {
