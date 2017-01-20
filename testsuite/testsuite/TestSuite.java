@@ -68,8 +68,8 @@ public class TestSuite {
 
   @Test
   public void grayscaleRainbow() throws IOException {
-    assertEquals(Utils.loadPicture("images/rainbow64x64doc.png"),
-            runMain(tmpFolder, "grayscale", "images/rainbowGS64x64doc.png"));
+    assertEquals(Utils.loadPicture("images/rainbowGS64x64doc.png"),
+            runMain(tmpFolder, "grayscale", "images/rainbow64x64doc.png"));
   }
 
   @Test
@@ -124,12 +124,8 @@ public class TestSuite {
   public void blendRainbowAndSunset() throws IOException {
     assertEquals(
             Utils.loadPicture("images/rainbowsunsetBlend.png"),
-            runMain(tmpFolder, "blend", "images/sunset64x32.png",
-                    "images/rainbow64x64doc.png"));
+            runMain(tmpFolder, "blend", "images/rainbow64x64doc.png",
+                    "images/sunset64x32.png"));
   }
-
-
-
-
 
 }
