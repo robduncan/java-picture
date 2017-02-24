@@ -10,7 +10,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 /**
- * A set of convenient methods to create and display Picture objects.
+ * A set of methods to create and display Picture objects.
  */
 public class Utils {
 
@@ -40,7 +40,7 @@ public class Utils {
    * Create a Picture object from the the image at the specified location (URL
    * or local file).
    * 
-   * @param location
+   * @param locationString
    *          a String representing the location of the image to be loaded. This
    *          can either be a URL, or a filesystem location.
    * @return a Picture representing the image at the specified URL, or null if

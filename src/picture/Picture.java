@@ -3,10 +3,11 @@ package picture;
 import java.awt.image.BufferedImage;
 
 /**
- * A class that encapsulates and provides a simplified interface for
- * manipulating an image. The internal representation of the image is based on
- * the RGB direct colour model. Refer to <tt>picture.PictureTool</tt> for
- * information on how to create instances of this class.
+ * Encapsulates and provides a simplified interface for manipulating an image.
+ * The internal representation of the image is based on the RGB direct colour
+ * model.
+ * Refer to <tt>picture.PictureTool</tt> for information on how to create
+ * instances of this class.
  * 
  * @see picture.Utils PictureTool
  */
@@ -109,7 +110,7 @@ public class Picture {
   /**
    * Returns true if this Picture is graphically identical to the other one.
    * 
-   * @param other
+   * @param otherO
    *          The other picture to compare to.
    * @return true iff this Picture is graphically identical to other.
    */

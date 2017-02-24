@@ -1,9 +1,10 @@
 package picture;
 
 /**
- * Encapsulate the colours using the RGB direct color-model. The individual red,
- * green and blue components of a colour are assigned a value ranging from 0 to
- * 255. A component value of 0 signifies no contribution is made to the color.
+ * Encapsulates the colours using the RGB direct color-model.
+ * The individual red, green and blue components of a colour are assigned a
+ * value ranging from 0 to 255. A component value of 0 signifies no
+ * contribution is made to the color.
  */
 public class Color {
 
